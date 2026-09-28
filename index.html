@@ -3,180 +3,413 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Make Yourself — салон красоты</title>
-  <meta name="description" content="Салон красоты Make Yourself: маникюр, педикюр, стрижки, окрашивание и уходовые процедуры.">
+  <meta name="theme-color" content="#f8f5ef">
+  <meta name="description" content="Make Yourself — пространство красоты. Маникюр, педикюр, стрижки, окрашивание и уходовые процедуры.">
+  <title>Make Yourself — пространство красоты</title>
   <style>
+    :root {
+      --cream: #f8f5ef;
+      --white: #fff;
+      --ink: #282722;
+      --muted: #77736b;
+      --gold: #b8935a;
+      --line: #e8e2d8;
+      --dark: #252420;
+      --radius: 20px;
+      --content: 1160px;
+    }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      color: #292720;
-      background: #faf6ef;
-      font: 16px/1.6 Arial, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      font: 16px/1.65 Arial, Helvetica, sans-serif;
     }
-    img { display: block; width: 100%; object-fit: cover; }
+    img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
-    .container { width: min(1120px, 90%); margin: auto; }
-    header {
-      position: absolute; top: 0; left: 0; right: 0; z-index: 2;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 5%; color: white;
+    button { font: inherit; }
+    .container { width: min(var(--content), calc(100% - 44px)); margin: auto; }
+    .section { padding: 92px 0; }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
     }
-    .logo { font-weight: bold; letter-spacing: 2px; }
-    nav { display: flex; gap: 24px; }
-    .hero {
-      min-height: 620px; display: flex; align-items: end; color: white;
-      background: linear-gradient(90deg, #201d19cc, #201d1933), url("hero.jpg") center/cover;
+    h1, h2, h3, p { margin-top: 0; }
+    h2 {
+      max-width: 760px;
+      margin-bottom: 18px;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -.035em;
     }
-    .hero-copy { padding: 150px 0 70px; }
-    h1 { max-width: 760px; font-size: clamp(38px, 7vw, 72px); line-height: 1.08; }
+    .section-intro { max-width: 620px; margin-bottom: 38px; color: var(--muted); }
     .button {
-      display: inline-block; padding: 13px 24px; border-radius: 30px;
-      background: #b8935a; color: white; font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 25px;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      background: var(--gold);
+      color: white;
+      font-weight: 700;
+      transition: .2s ease;
     }
-    section { padding: 76px 0; }
-    h2 { font-size: clamp(30px, 5vw, 46px); line-height: 1.15; }
-    .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
-    .intro img { height: 390px; border-radius: 18px; }
-    .services {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px;
+    .button:hover { background: #a47e49; border-color: #a47e49; transform: translateY(-2px); }
+    .button.light { background: transparent; border-color: rgba(255,255,255,.7); }
+    .button.light:hover { background: white; color: var(--ink); }
+
+    /* Шапка */
+    .header {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: white;
     }
-    .card { overflow: hidden; border-radius: 16px; background: white; }
-    .card img { height: 220px; }
-    .card div { padding: 18px; }
-    .card h3 { margin: 0 0 6px; }
-    .masters, .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
-    .masters img, .gallery img { height: 280px; border-radius: 14px; }
-    .master { text-align: center; }
-    .master img { border-radius: 50%; width: 180px; height: 180px; margin: auto auto 14px; }
-    .contact { background: #242320; color: white; }
-    footer { padding: 24px 0; background: #171614; color: white; }
-    @media (max-width: 700px) {
-      header { align-items: flex-start; }
-      nav { gap: 10px; flex-wrap: wrap; justify-content: flex-end; font-size: 13px; }
-      .intro { grid-template-columns: 1fr; }
-      .intro img { height: 280px; }
-      .hero { min-height: 560px; }
+    .header-inner {
+      display: flex;
+      min-height: 82px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo { font-size: 17px; font-weight: 700; letter-spacing: .12em; }
+    .logo span { color: #e1c18d; }
+    .nav { display: flex; align-items: center; gap: 27px; font-size: 14px; }
+    .nav a { opacity: .92; }
+    .nav a:hover { color: #e1c18d; }
+
+    /* Первый экран */
+    .hero {
+      position: relative;
+      display: flex;
+      min-height: min(760px, 100svh);
+      align-items: center;
+      overflow: hidden;
+      background: #39352f;
+      color: white;
+    }
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(25,23,20,.76), rgba(25,23,20,.12)),
+                  linear-gradient(0deg, rgba(25,23,20,.32), transparent 55%);
+      content: "";
+    }
+    .hero-content { position: relative; z-index: 1; padding: 125px 0 75px; }
+    .hero .eyebrow { color: #e1c18d; }
+    h1 {
+      max-width: 780px;
+      margin: 0 0 22px;
+      font-size: clamp(42px, 7.6vw, 82px);
+      font-weight: 500;
+      line-height: 1.03;
+      letter-spacing: -.045em;
+    }
+    .hero-copy { max-width: 540px; margin-bottom: 29px; color: rgba(255,255,255,.88); font-size: 18px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* О салоне */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-photo { width: 100%; height: 430px; border-radius: var(--radius); object-fit: cover; }
+    .about-copy { color: var(--muted); }
+    .features { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 30px; }
+    .feature { padding-top: 14px; border-top: 1px solid var(--line); }
+    .feature strong { display: block; color: var(--ink); }
+
+    /* Услуги */
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .service-card { overflow: hidden; border-radius: 16px; background: white; }
+    .service-card img { width: 100%; height: 210px; object-fit: cover; transition: transform .4s ease; }
+    .service-card:hover img { transform: scale(1.04); }
+    .service-body { padding: 18px 19px 21px; }
+    .service-body h3 { margin-bottom: 7px; font-size: 19px; }
+    .service-body p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* Мастер */
+    .master-card {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 34px;
+      align-items: center;
+      max-width: 760px;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: white;
+    }
+    .master-card img { width: 100%; height: 320px; border-radius: 14px; object-fit: cover; }
+    .master-card p { color: var(--muted); }
+    .master-card .specialty { color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+
+    /* Галерея */
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .gallery img { width: 100%; height: 270px; border-radius: 14px; object-fit: cover; }
+
+    /* Отзывы */
+    .reviews { background: #eee8de; }
+    .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .review {
+      padding: 25px;
+      border: 1px solid rgba(40,39,34,.08);
+      border-radius: 16px;
+      background: rgba(255,255,255,.74);
+    }
+    .stars { margin-bottom: 12px; color: var(--gold); letter-spacing: .12em; }
+    .review p { color: #514e47; }
+    .review-name { margin: 0; font-weight: 700; }
+    .review-note { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
+
+    /* Контакты */
+    .contacts { background: var(--dark); color: white; }
+    .contacts h2 { color: white; }
+    .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+    .contact-list { display: grid; gap: 18px; }
+    .contact-item { padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,.16); }
+    .contact-label { display: block; margin-bottom: 3px; color: #c7a777; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+    .contact-value { font-size: 18px; }
+    .map-card {
+      display: flex;
+      min-height: 280px;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #37352f, #2a2925);
+      color: rgba(255,255,255,.75);
+      text-align: center;
+    }
+    footer { padding: 23px 0; background: #1b1a17; color: rgba(255,255,255,.65); font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { gap: 32px; }
+      .review-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 620px) {
+      .container { width: min(100% - 32px, var(--content)); }
+      .section { padding: 66px 0; }
+      .header-inner { min-height: 70px; align-items: flex-start; padding-top: 20px; }
+      .nav { max-width: 220px; justify-content: flex-end; flex-wrap: wrap; gap: 8px 15px; font-size: 12px; }
+      .logo { padding-top: 2px; font-size: 14px; white-space: nowrap; }
+      .hero { min-height: 680px; }
+      .hero-content { padding-top: 130px; }
+      .hero-copy { font-size: 16px; }
+      .about-grid, .contacts-grid { grid-template-columns: 1fr; }
+      .about-photo { height: 300px; }
+      .features { gap: 12px; }
+      .services-grid { gap: 12px; }
+      .service-card img { height: 155px; }
+      .service-body { padding: 14px; }
+      .service-body h3 { font-size: 16px; }
+      .master-card { grid-template-columns: 1fr; gap: 22px; }
+      .master-card img { height: 300px; }
+      .gallery img { height: 190px; }
+      .review-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <a class="logo" href="#top">MAKE YOURSELF</a>
-    <nav>
-      <a href="#about">О салоне</a>
-      <a href="#services">Услуги</a>
-      <a href="#gallery">Фото</a>
-      <a href="#contacts">Контакты</a>
-    </nav>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a class="logo" href="#top">MAKE <span>YOURSELF</span></a>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#about">О салоне</a>
+        <a href="#services">Услуги</a>
+        <a href="#master">Мастер</a>
+        <a href="#gallery">Работы</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </div>
   </header>
 
   <main>
     <section class="hero" id="top">
-      <div class="container hero-copy">
-        <p>САЛОН КРАСОТЫ</p>
+      <img class="hero-photo" src="hero-salon.jpg" alt="Интерьер салона Make Yourself">
+      <div class="container hero-content">
+        <p class="eyebrow">Салон красоты · Москва</p>
         <h1>Время уделить внимание себе</h1>
-        <p>Маникюр, волосы, брови и уходовые процедуры в одном месте.</p>
-        <a class="button" href="#contacts">Записаться</a>
+        <p class="hero-copy">Маникюр, волосы, брови и уходовые процедуры — в спокойной атмосфере и с вниманием к деталям.</p>
+        <div class="hero-actions">
+          <a class="button" href="#contacts">Записаться</a>
+          <a class="button light" href="#services">Посмотреть услуги</a>
+        </div>
       </div>
     </section>
 
-    <section id="about">
-      <div class="container intro">
+    <section class="section" id="about">
+      <div class="container about-grid">
         <div>
-          <p>MAKE YOURSELF</p>
+          <p class="eyebrow">Make Yourself</p>
           <h2>Красота — во внимании к деталям</h2>
-          <p>Здесь можно рассказать о салоне, специалистах и вашем подходе к работе. Замените этот текст на информацию о себе.</p>
+          <p class="about-copy">Make Yourself — пространство, где можно замедлиться, выбрать подходящую процедуру и посвятить время себе. Мы собрали популярные услуги красоты в одном месте.</p>
+          <div class="features">
+            <div class="feature"><strong>Забота о гостях</strong><span>Внимательно относимся к пожеланиям</span></div>
+            <div class="feature"><strong>Комфортная атмосфера</strong><span>Уютное пространство для отдыха</span></div>
+            <div class="feature"><strong>Индивидуальный подход</strong><span>Подбираем процедуру под ваш запрос</span></div>
+            <div class="feature"><strong>Любовь к деталям</strong><span>Ценим аккуратность и эстетику</span></div>
+          </div>
         </div>
-        <img src="salon-interior.jpg" alt="Интерьер салона Make Yourself" loading="lazy">
+        <img class="about-photo" src="salon-interior.jpg" alt="Интерьер салона красоты" loading="lazy">
       </div>
     </section>
 
-    <section id="services">
+    <section class="section" id="services">
       <div class="container">
-        <p>НАШИ УСЛУГИ</p>
+        <p class="eyebrow">Наши услуги</p>
         <h2>Выберите свою процедуру</h2>
-        <div class="services">
-          <article class="card">
-            <img src="manicure.jpg" alt="Маникюр с покрытием гель-лак" loading="lazy">
-            <div><h3>Маникюр</h3><p>Уход и аккуратное покрытие.</p></div>
+        <p class="section-intro">Примеры услуг и описаний для портфолио. Цены можно добавить или изменить под ваш макет.</p>
+        <div class="services-grid">
+          <article class="service-card">
+            <img src="manicure.jpg" alt="Маникюр" loading="lazy">
+            <div class="service-body"><h3>Маникюр</h3><p>Уход, форма и аккуратное покрытие.</p></div>
           </article>
-          <article class="card">
-            <img src="pedicure.jpg" alt="Аппаратный педикюр" loading="lazy">
-            <div><h3>Педикюр</h3><p>Уход за стопами и ногтями.</p></div>
+          <article class="service-card">
+            <img src="pedicure.jpg" alt="Педикюр" loading="lazy">
+            <div class="service-body"><h3>Педикюр</h3><p>Уход за стопами и ногтями.</p></div>
           </article>
-          <article class="card">
+          <article class="service-card">
             <img src="haircut.jpg" alt="Стрижка и укладка" loading="lazy">
-            <div><h3>Стрижка и укладка</h3><p>Образ с учётом ваших пожеланий.</p></div>
+            <div class="service-body"><h3>Стрижка и укладка</h3><p>Образ с учётом ваших пожеланий.</p></div>
           </article>
-          <article class="card">
+          <article class="service-card">
             <img src="hair-color.jpg" alt="Окрашивание волос" loading="lazy">
-            <div><h3>Окрашивание</h3><p>Подбор оттенка и бережная работа.</p></div>
+            <div class="service-body"><h3>Окрашивание</h3><p>Подбор оттенка и обновление образа.</p></div>
           </article>
-          <article class="card">
-            <img src="brows.jpg" alt="Коррекция и оформление бровей" loading="lazy">
-            <div><h3>Брови</h3><p>Коррекция формы и окрашивание.</p></div>
+          <article class="service-card">
+            <img src="brows.jpg" alt="Оформление бровей" loading="lazy">
+            <div class="service-body"><h3>Брови</h3><p>Коррекция формы и окрашивание.</p></div>
           </article>
-          <article class="card">
-            <img src="lashes.jpg" alt="Ламинирование ресниц" loading="lazy">
-            <div><h3>Ресницы</h3><p>Процедуры для выразительного взгляда.</p></div>
+          <article class="service-card">
+            <img src="lashes.jpg" alt="Уход за ресницами" loading="lazy">
+            <div class="service-body"><h3>Ресницы</h3><p>Ламинирование и выразительный взгляд.</p></div>
           </article>
-          <article class="card">
-            <img src="facial-care.jpg" alt="Уходовая процедура для лица" loading="lazy">
-            <div><h3>Уход за лицом</h3><p>Уходовые процедуры для вашей кожи.</p></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <p>НАША КОМАНДА</p>
-        <h2>Мастера салона</h2>
-        <div class="masters">
-          <article class="master">
-            <img src="master-1.jpg" alt="Мастер салона" loading="lazy">
-            <h3>Имя мастера</h3><p>Специализация</p>
-          </article>
-          <article class="master">
-            <img src="master-2.jpg" alt="Мастер салона" loading="lazy">
-            <h3>Имя мастера</h3><p>Специализация</p>
-          </article>
-          <article class="master">
-            <img src="master-3.jpg" alt="Мастер салона" loading="lazy">
-            <h3>Имя мастера</h3><p>Специализация</p>
+          <article class="service-card">
+            <img src="facial-care.jpg" alt="Уход за лицом" loading="lazy">
+            <div class="service-body"><h3>Уход за лицом</h3><p>Уходовые процедуры для кожи.</p></div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="gallery">
+    <section class="section" id="master">
       <div class="container">
-        <p>ПОРТФОЛИО</p>
-        <h2>Наши работы</h2>
+        <p class="eyebrow">Знакомьтесь</p>
+        <h2>Мастер салона</h2>
+        <div class="master-card">
+          <img src="master-anna.webp" alt="Анна — мастер салона Make Yourself" loading="lazy">
+          <div>
+            <p class="specialty">Мастер ногтевого сервиса</p>
+            <h3>Анна</h3>
+            <p>В этом блоке можно рассказать о мастере, опыте работы, специализации и любимых процедурах.</p>
+            <a class="button" href="#contacts">Записаться к мастеру</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="container">
+        <p class="eyebrow">Портфолио</p>
+        <h2>Работы и атмосфера</h2>
+        <p class="section-intro">Подборка фотографий услуг и интерьера. Для этого макета использованы загруженные в репозиторий изображения.</p>
         <div class="gallery">
-          <img src="work-1.jpg" alt="Работа мастера салона" loading="lazy">
-          <img src="work-2.jpg" alt="Работа мастера салона" loading="lazy">
-          <img src="work-3.jpg" alt="Работа мастера салона" loading="lazy">
-          <img src="work-4.jpg" alt="Работа мастера салона" loading="lazy">
+          <img src="manicure.jpg" alt="Маникюр — работа мастера" loading="lazy">
+          <img src="hair-color.jpg" alt="Окрашивание — работа мастера" loading="lazy">
+          <img src="brows.jpg" alt="Оформление бровей — работа мастера" loading="lazy">
+          <img src="salon-interior.jpg" alt="Интерьер салона" loading="lazy">
+          <img src="pedicure.jpg" alt="Педикюр — работа мастера" loading="lazy">
+          <img src="facial-care.jpg" alt="Уход за лицом — работа мастера" loading="lazy">
+          <img src="master-anna.png" alt="Мастер салона Анна" loading="lazy">
+          <img src="lashes.jpg" alt="Уход за ресницами — работа мастера" loading="lazy">
         </div>
       </div>
     </section>
 
-    <section class="contact" id="contacts">
+    <section class="section reviews" id="reviews">
       <div class="container">
-        <p>КОНТАКТЫ</p>
+        <p class="eyebrow">Отзывы</p>
+        <h2>Тёплые слова гостей</h2>
+        <p class="section-intro">Демонстрационные отзывы для портфолио — замените их на реальные, если будете представлять сайт как действующий салон.</p>
+        <div class="review-grid">
+          <article class="review">
+            <div class="stars" aria-label="5 из 5">★★★★★</div>
+            <p>«Очень уютное место. Маникюр получился аккуратным, а время пролетело незаметно».</p>
+            <p class="review-name">Мария</p>
+          </article>
+          <article class="review">
+            <div class="stars" aria-label="5 из 5">★★★★★</div>
+            <p>«Понравилось внимание к деталям и бережное отношение. Обязательно вернусь».</p>
+            <p class="review-name">Екатерина</p>
+          </article>
+          <article class="review">
+            <div class="stars" aria-label="5 из 5">★★★★★</div>
+            <p>«Помогли подобрать оттенок и объяснили, как ухаживать за волосами после окрашивания».</p>
+            <p class="review-name">Анна</p>
+          </article>
+        </div>
+        <p class="review-note">Отзывы выше — примеры оформления, а не выгрузка с карт или площадок.</p>
+      </div>
+    </section>
+
+    <section class="section contacts" id="contacts">
+      <div class="container">
+        <p class="eyebrow">Контакты</p>
         <h2>Будем рады вас видеть</h2>
-        <p>Адрес: укажите адрес салона</p>
-        <p>Телефон: <a href="tel:+70000000000">укажите номер телефона</a></p>
-        <p>Время работы: укажите график</p>
-        <a class="button" href="tel:+70000000000">Позвонить</a>
+        <div class="contacts-grid">
+          <div class="contact-list">
+            <div class="contact-item">
+              <span class="contact-label">Адрес</span>
+              <span class="contact-value">Москва, ул. Остоженка, 8</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Телефон для примера</span>
+              <a class="contact-value" href="tel:+79991234567">+7 (999) 123-45-67</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">График работы</span>
+              <span class="contact-value">Ежедневно, 10:00–21:00</span>
+            </div>
+            <div>
+              <a class="button" href="https://wa.me/79991234567">Написать в WhatsApp</a>
+            </div>
+          </div>
+          <div class="map-card">
+            <p>Здесь можно разместить карту или ссылку на маршрут до салона.</p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">© Make Yourself</div>
+    <div class="container footer-inner">
+      <span>© 2026 Make Yourself</span>
+      <a href="#top">Наверх ↑</a>
+    </div>
   </footer>
+
 </body>
 </html>
